@@ -1,5 +1,5 @@
 //
-//  AViewController.h
+//  BViewController.h
 //  MainProject
 //
 //  Created by CoderSLZeng on 2019/4/3.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface AViewController : UIViewController
+@interface BViewController : UIViewController
+
+- (instancetype)initWithContentText:(NSString *)contentText;
 
 @end
 

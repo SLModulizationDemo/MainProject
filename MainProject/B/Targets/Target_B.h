@@ -1,5 +1,5 @@
 //
-//  BViewController.h
+//  Target_B.h
 //  MainProject
 //
 //  Created by CoderSLZeng on 2019/4/3.
@@ -10,7 +10,9 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BViewController : UIViewController
+@interface Target_B : NSObject
+
+- (nonnull UIViewController *)Action_viewController:(nullable NSDictionary *)parameters;
 
 @end
 

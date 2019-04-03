@@ -7,25 +7,48 @@
 //
 
 #import "ViewController.h"
-#import "AViewController.h"
+#import <A_Category/CTMediator+A.h>
 
 @interface ViewController ()
-
+/** push B控制器的按钮 */
+@property (strong, nonatomic) UIButton *pushAViewControllerButton;
 @end
 
 @implementation ViewController
 
+#pragma mark - life cycle
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.pushAViewControllerButton];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+- (void)viewWillLayoutSubviews {
+    [super viewWillLayoutSubviews];
     
-    AViewController *vc = [[AViewController alloc] init];
+    [self.pushAViewControllerButton sizeToFit];
+    self.pushAViewControllerButton.center = self.view.center;
+}
+
+#pragma mark - event response
+- (void)didTouchedpushAViewControllerButton {    
+    UIViewController *vc = [[CTMediator sharedInstance] A_viewController];
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - getters and setters
+- (UIButton *)pushAViewControllerButton {
+    if (!_pushAViewControllerButton) {
+        _pushAViewControllerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_pushAViewControllerButton setTitle:@"push A view controller" forState:UIControlStateNormal];
+        [_pushAViewControllerButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_pushAViewControllerButton addTarget:self
+                                       action:@selector(didTouchedpushAViewControllerButton)
+                             forControlEvents:UIControlEventTouchUpInside];
+    }
     
+    return _pushAViewControllerButton;
 }
 
 @end
