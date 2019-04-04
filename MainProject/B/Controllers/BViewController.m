@@ -7,10 +7,13 @@
 //
 
 #import "BViewController.h"
+#import <C_Category/CTMediator+C.h>
 
 @interface BViewController ()
 
 @property (strong, nonatomic) UILabel *contentLabel;
+
+@property (strong, nonatomic) UIButton *modalCViewControllerButton;
 
 @end
 
@@ -30,6 +33,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.contentLabel];
+    [self.view addSubview:self.modalCViewControllerButton];
 }
 
 - (void)viewWillLayoutSubviews {
@@ -37,6 +41,20 @@
     
     [self.contentLabel sizeToFit];
     self.contentLabel.center = self.view.center;
+    
+    [self.modalCViewControllerButton sizeToFit];
+    self.modalCViewControllerButton.center = self.contentLabel.center;
+    CGRect rect = self.modalCViewControllerButton.frame;
+    rect.origin.y = self.view.bounds.size.height - rect.size.height * 2;
+    self.modalCViewControllerButton.frame = rect;
+}
+
+#pragma mark - event response
+- (void)didTouchedModalCViewController {
+    
+    UIViewController *vc = [[CTMediator sharedInstance] C_viewControllerWithContentText:@"This is modal view controller"];
+    [self presentViewController:vc animated:YES completion:nil];
+    
 }
 
 #pragma mark - getter and setter
@@ -48,6 +66,20 @@
     
     return _contentLabel;
 }
+
+- (UIButton *)modalCViewControllerButton {
+    if (!_modalCViewControllerButton) {
+        _modalCViewControllerButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [_modalCViewControllerButton setTitle:@"modal C view controller" forState:UIControlStateNormal];
+        [_modalCViewControllerButton setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+        [_modalCViewControllerButton addTarget:self
+                                        action:@selector(didTouchedModalCViewController)
+                              forControlEvents:UIControlEventTouchUpInside];
+    }
+    
+    return _modalCViewControllerButton;
+}
+
 
 
 

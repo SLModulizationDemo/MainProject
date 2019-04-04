@@ -9,5 +9,7 @@ use_frameworks!
 target 'MainProject' do
   pod "A_Category"
   pod "A"
+  pod "C_Category"
+  pod "C"
 
 end
